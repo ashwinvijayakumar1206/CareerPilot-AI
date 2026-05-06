@@ -1,0 +1,69 @@
+# Implementation Plan - CareerPilot AI
+
+CareerPilot AI is an intelligent multi-agent career assistant platform designed to provide personalized placement and career guidance. It uses Generative AI to analyze resumes, recommend career paths, simulate interviews, and detect skill gaps.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This project requires access to an LLM API (e.g., OpenAI or Google Gemini). Please ensure you have an API key ready for the backend configuration.
+
+> [!NOTE]
+> I will be using **FastAPI** for the backend to leverage Python's rich AI ecosystem (LangChain, PyPDF2, etc.) and **Next.js** for a modern, responsive frontend.
+
+## Proposed Changes
+
+### 1. Project Structure
+We will use a monorepo-style structure:
+- `frontend/`: Next.js + Tailwind CSS
+- `backend/`: FastAPI + LangChain
+- `docker-compose.yml`: To orchestrate both services and a database.
+
+---
+
+### 2. Backend (FastAPI) [NEW]
+
+#### `backend/main.py`
+- Entry point for the FastAPI application.
+- Route definitions for all modules.
+
+#### `backend/agents/`
+- `resume_agent.py`: Handles resume parsing and ATS scoring.
+- `career_agent.py`: Generates career recommendations and roadmaps.
+- `interview_agent.py`: Manages mock interview sessions.
+- `skill_agent.py`: Detects skill gaps and suggests improvements.
+
+#### `backend/utils/`
+- `pdf_processor.py`: For extracting text from resumes.
+- `llm_client.py`: Configurable client for LLM interaction.
+
+---
+
+### 3. Frontend (Next.js) [NEW]
+
+#### `frontend/src/app/`
+- `dashboard/`: Main user dashboard with career analytics.
+- `resume/`: Resume upload and analysis interface.
+- `interview/`: Real-time AI interview simulator.
+- `roadmap/`: Visual career roadmap generator.
+
+#### `frontend/src/components/`
+- `ui/`: Reusable premium components (buttons, cards, inputs).
+- `charts/`: Data visualization for skill gaps and progress.
+
+---
+
+### 4. Database Layer
+- **PostgreSQL**: For storing user profiles and history.
+- **ChromaDB**: As a vector store for RAG-based career advice.
+
+## Verification Plan
+
+### Automated Tests
+- Unit tests for PDF parsing and LLM prompt logic.
+- Integration tests for API endpoints.
+
+### Manual Verification
+- Upload a sample resume and verify ATS score and skill extraction.
+- Start a mock interview and check for context-aware follow-up questions.
+- Generate a roadmap and verify the logical sequence of learning steps.
+- Verify responsive design on mobile and desktop.
